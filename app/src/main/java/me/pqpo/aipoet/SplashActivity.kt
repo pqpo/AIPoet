@@ -19,6 +19,6 @@ class SplashActivity : AppCompatActivity() {
             ActivityCompat.startActivity(this@SplashActivity,
                 Intent(this@SplashActivity, MainActivity::class.java), sharedView.toBundle())
             finish()
-        }, 2000)
+        }, 1500)
     }
 }

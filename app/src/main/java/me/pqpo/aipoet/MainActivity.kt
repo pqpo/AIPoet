@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.TextView
+import android.widget.Toolbar
+import androidx.appcompat.app.WindowDecorActionBar
 import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         initAiPoet()
         val typeface = Typeface.createFromAsset(
             assets,
-            "font.ttc"
+            "font.otf"
         )
         text.typeface = typeface
         song.typeface = typeface
@@ -34,6 +36,14 @@ class MainActivity : AppCompatActivity() {
         song.performClick()
         Handler().post{
             ViewCompat.setTransitionName(iv_yz, "");
+        }
+        ll_option.post {
+            val llHeight = ll_option.height
+            ll_option.translationY = llHeight.toFloat()
+
+            val animator = ll_option.animate().translationY(0.0f)
+            animator.duration = 800
+            animator.start()
         }
     }
 
@@ -57,6 +67,9 @@ class MainActivity : AppCompatActivity() {
         }
         tv_random.setOnClickListener {
             et_style.setText(PoetryStyle.getRandomStyle())
+            val animator = tv_random.animate().rotationBy(180.0f)
+            animator.duration = 500
+            animator.start()
         }
         tv_normal.setOnClickListener{
             setAcrosticStatus(false)

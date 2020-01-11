@@ -111,7 +111,7 @@ class AiPoet @Throws(IOException::class)
         val lineSize = if (acrostic) startWordsLocal.length  else line
         var lineIndex = -1
         for (i in IntRange(0, MAX_CHAR_COUNT)) {
-            val isNewLine = preWord in arrayOf("。", "！", "<START>")
+            val isNewLine = preWord in arrayOf("。", "！", "<START>", "？")
             if (isNewLine) {
                 lineIndex++
             }

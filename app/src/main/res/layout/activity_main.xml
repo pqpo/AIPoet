@@ -61,30 +61,33 @@
                 android:maxLength="10"
                 android:hint="输入藏头词"
                 android:theme="@style/MyEditText"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:id="@+id/et_acrostic"/>
 
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#666"
-                android:maxLength="20"
-                android:layout_marginTop="5dp"
-                android:hint="输入作诗风格"
-                android:theme="@style/MyEditText"
-                android:textSize="18sp"
-                android:id="@+id/et_style"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#666"
+                    android:maxLength="20"
+                    android:layout_marginTop="5dp"
+                    android:hint="输入作诗风格"
+                    android:theme="@style/MyEditText"
+                    android:textSize="16sp"
+                    android:id="@+id/et_style"/>
 
-        <TextView
-                android:text="随机风格"
-                android:textColor="#999"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/refresh"
-                android:drawablePadding="8dp"
-                android:textSize="12sp"
-                android:id="@+id/tv_random"/>
+            <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:padding="3dp"
+                    android:src="@mipmap/refresh"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/tv_random"/>
+
+        </RelativeLayout>
 
         <TextView
                 android:id="@+id/song"
@@ -125,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:layout_centerInParent="true"
+                    android:lineSpacingExtra="8dp"
                     tools:text="人间无限路，天堑即淹留。\n工部将何及，孙纲事不通。\n智情心更重，心事日无通。\n能济婴儿辈，同欢孺子同。"
                     android:textColor="#333333"/>
 
