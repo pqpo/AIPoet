@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/app_bg_draw"
+        tools:context=".MainActivity">
+
+    <LinearLayout
+            android:id="@+id/ll_option"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/option_bg"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:gravity="center"
+            android:animateLayoutChanges="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginBottom="5dp">
+
+            <TextView
+                    android:text="藏头诗"
+                    android:textColor="#666"
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/point_red"
+                    android:drawablePadding="8dp"
+                    android:textSize="12sp"
+                    android:id="@+id/tv_acrostic"/>
+
+            <TextView
+                    android:text="意境诗"
+                    android:textColor="#999"
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/point_gray"
+                    android:drawablePadding="8dp"
+                    android:textSize="12sp"
+                    android:id="@+id/tv_normal"/>
+
+        </LinearLayout>
+
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#666"
+                android:maxLength="10"
+                android:hint="输入藏头词"
+                android:theme="@style/MyEditText"
+                android:textSize="18sp"
+                android:id="@+id/et_acrostic"/>
+
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#666"
+                android:maxLength="20"
+                android:layout_marginTop="5dp"
+                android:hint="输入作诗风格"
+                android:theme="@style/MyEditText"
+                android:textSize="18sp"
+                android:id="@+id/et_style"/>
+
+        <TextView
+                android:text="随机风格"
+                android:textColor="#999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/refresh"
+                android:drawablePadding="8dp"
+                android:textSize="12sp"
+                android:id="@+id/tv_random"/>
+
+        <TextView
+                android:id="@+id/song"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="作 诗"
+                android:textColor="#FFF"
+                android:paddingLeft="40dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="5dp"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:background="@mipmap/button"/>
+
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:elevation="8dp"
+            android:layout_height="300dp"
+            app:cardCornerRadius="18dp"
+            app:cardBackgroundColor="#FFF"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="15dp"
+            android:layout_marginTop="80dp" android:layout_marginEnd="15dp"
+    >
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:background="@mipmap/bg">
+
+            <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_centerInParent="true"
+                    tools:text="人间无限路，天堑即淹留。\n工部将何及，孙纲事不通。\n智情心更重，心事日无通。\n能济婴儿辈，同欢孺子同。"
+                    android:textColor="#333333"/>
+
+            <ImageView
+                    android:id="@+id/iv_yz"
+                    android:layout_width="15dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/yz"
+                    android:transitionName="icon_yz"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
