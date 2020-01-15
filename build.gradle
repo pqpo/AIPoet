@@ -5,7 +5,12 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+//        maven {
+//            url "http://mvn.leancloud.cn/nexus/content/repositories/public"
+//        }
+//        maven {
+//            url "https://maven.google.com"
+//        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'

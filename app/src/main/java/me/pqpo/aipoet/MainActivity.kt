@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import android.widget.Toolbar
-import androidx.appcompat.app.WindowDecorActionBar
 import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import java.io.IOException
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         initAiPoet()
         val typeface = Typeface.createFromAsset(
             assets,
-            "font.otf"
+            "font.ttc"
         )
         text.typeface = typeface
         song.typeface = typeface
@@ -48,6 +48,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initClickListeners() {
+        cl_root.setOnClickListener{
+            clearEditFocus()
+        }
         song.setOnClickListener {
             val acrosticStr = et_acrostic.text.toString()
             val styleStr = et_style.text.toString()
@@ -79,15 +82,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun clearEditFocus() {
+        et_style.clearFocus()
+        et_acrostic.clearFocus()
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(et_style.windowToken, 0)
+    }
+
     private fun setAcrosticStatus(acrostic: Boolean) {
         this.acrostic = acrostic
         if (acrostic) {
-            et_acrostic.visibility = View.VISIBLE
+            til_acrostic.visibility = View.VISIBLE
             setActiveTextView(tv_acrostic, tv_normal)
         } else {
-            et_acrostic.visibility = View.GONE
+            til_acrostic.visibility = View.GONE
             setActiveTextView(tv_normal, tv_acrostic)
         }
+        clearEditFocus()
     }
 
     private fun setActiveTextView(tvPositive: TextView?, tvNegative: TextView?) {
