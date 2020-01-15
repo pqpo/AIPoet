@@ -20,6 +20,7 @@
             android:paddingRight="16dp"
             android:paddingLeft="16dp"
             android:gravity="center"
+            android:elevation="8dp"
             android:animateLayoutChanges="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +37,7 @@
                     android:padding="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/point_red"
+                    android:drawableStart="@drawable/point_red"
                     android:drawablePadding="8dp"
                     android:textSize="12sp"
                     android:id="@+id/tv_acrostic"/>
@@ -124,7 +125,7 @@
     <androidx.cardview.widget.CardView
             android:id="@+id/cv_poet"
             android:layout_width="0dp"
-            android:elevation="8dp"
+            android:elevation="14dp"
             android:layout_height="300dp"
             app:cardCornerRadius="18dp"
             app:cardBackgroundColor="#FFF"
@@ -154,7 +155,7 @@
                     android:layout_height="30dp"
                     android:src="@mipmap/yz"
                     android:transitionName="icon_yz"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="20dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"/>
