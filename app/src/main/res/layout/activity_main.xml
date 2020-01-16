@@ -134,7 +134,8 @@
             android:layout_marginTop="80dp" android:layout_marginEnd="15dp"
     >
 
-        <RelativeLayout android:layout_width="match_parent"
+        <RelativeLayout android:id="@+id/rl_card"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:background="@mipmap/bg">

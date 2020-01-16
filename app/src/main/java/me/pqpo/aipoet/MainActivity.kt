@@ -1,8 +1,6 @@
 package me.pqpo.aipoet
 
 import android.Manifest
-import android.graphics.Color
-import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -13,30 +11,32 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.toast
 import java.io.IOException
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.ContentValues
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.os.SystemClock
 import android.provider.MediaStore
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
+import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val PERMISSION_REQUEST_CODE = 100
+        const val PERMISSION_REQUEST_CODE_SAVE_BITMAP = 100
+        const val PERMISSION_REQUEST_CODE_CHANGE_BG = 101
     }
 
     private var acrostic = false
     private var aiPoet: AiPoet? = null
+
+    private lateinit var backgroundFile: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +63,14 @@ class MainActivity : AppCompatActivity() {
             val animator = ll_option.animate().translationY(0.0f)
             animator.duration = 800
             animator.start()
+        }
+        backgroundFile = File(getExternalFilesDir(null), "background.jpg")
+        if (backgroundFile.isFile) {
+            val options = BitmapFactory.Options()
+            val bitmap = BitmapFactory.decodeFile(backgroundFile.absolutePath, options)
+            bitmap?.let{
+                rl_card.background = BitmapDrawable(resources, bitmap)
+            }
         }
     }
 
@@ -154,36 +162,48 @@ class MainActivity : AppCompatActivity() {
             cm.setPrimaryClip(mClipData)
             toast("复制成功")
         } else if (itemId == R.id.action_menu_share) {
-            savePoetBitmap()
+            checkPermissionAndApply(Manifest.permission.WRITE_EXTERNAL_STORAGE, PERMISSION_REQUEST_CODE_SAVE_BITMAP) {
+                savePoetBitmap()
+            }
+        } else if (itemId == R.id.action_menu_change_bg) {
+            checkPermissionAndApply(Manifest.permission.WRITE_EXTERNAL_STORAGE, PERMISSION_REQUEST_CODE_CHANGE_BG) {
+                changeBg()
+            }
+        } else if (itemId == R.id.action_menu_rest_bg) {
+            if (backgroundFile.isFile) {
+                backgroundFile.delete()
+                rl_card.backgroundResource = R.mipmap.bg
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun savePoetBitmap() {
-        val permission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+    private fun changeBg() {
+
+    }
+
+    private fun checkPermissionAndApply(permission: String, requestCode: Int,  action: () -> Unit) {
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-                toast("获取权限失败")
-            } else {
-                ActivityCompat.requestPermissions(this, arrayOf(permission), PERMISSION_REQUEST_CODE)
-            }
+            ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
         } else {
-            doSave()
+            action()
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                doSave()
-            } else {
-                toast("获取权限失败")
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (requestCode == PERMISSION_REQUEST_CODE_SAVE_BITMAP) {
+                savePoetBitmap()
+            } else if (requestCode == PERMISSION_REQUEST_CODE_CHANGE_BG) {
+                changeBg()
             }
+        } else {
+            toast("获取权限失败")
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    private fun doSave() {
+    private fun savePoetBitmap() {
         doAsync {
             val bitmap = Bitmap.createBitmap(cv_poet.width, cv_poet.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)

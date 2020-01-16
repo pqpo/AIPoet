@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/menu_group"
-        android:checkableBehavior="none">
-        <item
-            android:id="@+id/action_menu_copy"
-            android:icon="@mipmap/icon_copy"
-            app:showAsAction="ifRoom"
-            android:title="复制文本"/>
-        <item
-            android:id="@+id/action_menu_share"
-            app:showAsAction="never"
-            android:title="分享-导出图片"/>
+           android:checkableBehavior="none">
+        <item android:id="@+id/action_menu_copy"
+              android:icon="@mipmap/icon_copy"
+              app:showAsAction="ifRoom"
+              android:title="复制文本"/>
+        <item android:id="@+id/action_menu_share"
+              app:showAsAction="never"
+              android:title="分享-导出图片"/>
+        <item android:id="@+id/action_menu_change_bg"
+              app:showAsAction="never"
+              android:title="更换诗歌背景"/>
+        <item android:id="@+id/action_menu_rest_bg"
+              app:showAsAction="never"
+              android:title="恢复默认背景"/>
     </group>
 </menu>
