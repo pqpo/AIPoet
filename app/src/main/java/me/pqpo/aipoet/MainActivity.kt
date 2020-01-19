@@ -24,6 +24,9 @@ import android.os.SystemClock
 import android.provider.MediaStore
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import me.pqpo.aipoet.core.AiPoet
+import me.pqpo.aipoet.core.PoetryStyle
+import me.pqpo.aipoet.core.UnmappedWordException
 import org.jetbrains.anko.*
 import java.io.File
 

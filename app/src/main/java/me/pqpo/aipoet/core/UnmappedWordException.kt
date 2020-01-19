@@ -1,4 +1,4 @@
-package me.pqpo.aipoet
+package me.pqpo.aipoet.core
 
 import java.lang.Exception
 

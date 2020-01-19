@@ -1,4 +1,4 @@
-package me.pqpo.aipoet
+package me.pqpo.aipoet.core
 
 import android.content.Context
 import org.tensorflow.lite.Interpreter
