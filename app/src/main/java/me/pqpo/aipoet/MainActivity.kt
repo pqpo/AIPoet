@@ -15,9 +15,11 @@ import java.io.IOException
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.SystemClock
 import android.provider.MediaStore
 import androidx.core.app.ActivityCompat
@@ -31,6 +33,9 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val PERMISSION_REQUEST_CODE_SAVE_BITMAP = 100
         const val PERMISSION_REQUEST_CODE_CHANGE_BG = 101
+
+        const val REQUEST_CODE_PICK = 200
+        const val REQUEST_CODE_CROP = 201
     }
 
     private var acrostic = false
@@ -42,12 +47,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initAiPoet()
-        val typeface = Typeface.createFromAsset(
-            assets,
-            "font.ttc"
-        )
-        text.typeface = typeface
-        song.typeface = typeface
+        text.typeface = TypeFaceUtils.getTypeFace(this)
+        song.typeface = TypeFaceUtils.getTypeFace(this)
         initClickListeners()
         setAcrosticStatus(true)
         et_style.setText(PoetryStyle.getRandomStyle())
@@ -65,9 +66,12 @@ class MainActivity : AppCompatActivity() {
             animator.start()
         }
         backgroundFile = File(getExternalFilesDir(null), "background.jpg")
+        loadBackground()
+    }
+
+    private fun loadBackground() {
         if (backgroundFile.isFile) {
-            val options = BitmapFactory.Options()
-            val bitmap = BitmapFactory.decodeFile(backgroundFile.absolutePath, options)
+            val bitmap = BitmapFactory.decodeFile(backgroundFile.absolutePath)
             bitmap?.let{
                 rl_card.background = BitmapDrawable(resources, bitmap)
             }
@@ -179,7 +183,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeBg() {
-
+        val intent = Intent("android.intent.action.PICK", MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+        startActivityForResult(intent, REQUEST_CODE_PICK)
     }
 
     private fun checkPermissionAndApply(permission: String, requestCode: Int,  action: () -> Unit) {
@@ -216,17 +223,13 @@ class MainActivity : AppCompatActivity() {
             var result = false
             val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
             uri?.let {
-                try {
-                    resolver.openOutputStream(uri)?.use {
-                        bitmap.compress(
-                            Bitmap.CompressFormat.JPEG,
-                            100,
-                            it
-                        )
-                    }
+                resolver.openOutputStream(uri)?.use {
+                    bitmap.compress(
+                        Bitmap.CompressFormat.JPEG,
+                        100,
+                        it
+                    )
                     result = true
-                } catch (e: Throwable) {
-                    // ignore
                 }
             }
             uiThread {
@@ -235,5 +238,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_PICK) {
+            saveFileAndCrop(data)
+        } else if (requestCode == REQUEST_CODE_CROP) {
+            loadBackground()
+        }
+    }
+
+    private fun saveFileAndCrop(data: Intent?) {
+        val tempFile = File(externalCacheDir, "bg_temp.jpg")
+        data?.data?.let {
+            val inputStream = contentResolver.openInputStream(it)
+            inputStream?.use {
+                val outputStream = tempFile.outputStream()
+                outputStream.use {
+                    inputStream.copyTo(outputStream)
+                    val cropIntent = Intent("com.android.camera.action.CROP");
+                    cropIntent.setDataAndType(PoetFileProvider.getUriForFile(this@MainActivity, tempFile), "image/*")
+                    cropIntent.putExtra("crop", "true");
+                    cropIntent.putExtra("aspectX", rl_card.width)
+                    cropIntent.putExtra("aspectY", rl_card.height)
+                    cropIntent.putExtra("outputX", rl_card.width)
+                    cropIntent.putExtra("outputY", rl_card.height)
+                    cropIntent.putExtra("scale", true)
+                    cropIntent.putExtra("return-data", false)
+                    cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(backgroundFile))
+                    cropIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                    cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    startActivityForResult(cropIntent, REQUEST_CODE_CROP)
+                }
+            }
+        }
+    }
 
 }
