@@ -130,7 +130,7 @@ class AiPoet @Throws(IOException::class)
                 newWord = startWordsLocal[i].toString()
             }
             sb.append(newWord)
-            preWord = newWord?:""
+            preWord = newWord
             if (newWord in arrayOf("。", "！", "？")) {
                 sb.append("\n")
             }

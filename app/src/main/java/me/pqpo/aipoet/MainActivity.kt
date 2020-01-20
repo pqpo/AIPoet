@@ -1,6 +1,7 @@
 package me.pqpo.aipoet
 
 import android.Manifest
+import android.content.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -12,10 +13,6 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.ContentValues
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
@@ -24,6 +21,7 @@ import android.os.SystemClock
 import android.provider.MediaStore
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import me.pqpo.aipoet.core.AiPoet
 import me.pqpo.aipoet.core.PoetryStyle
 import me.pqpo.aipoet.core.UnmappedWordException
@@ -39,6 +37,9 @@ class MainActivity : AppCompatActivity() {
 
         const val REQUEST_CODE_PICK = 200
         const val REQUEST_CODE_CROP = 201
+
+        const val SP_CONFIG_NAME = "config"
+        const val SP_CONFIG_KEY_TEXT_COLOR = "textColor"
     }
 
     private var acrostic = false
@@ -70,6 +71,13 @@ class MainActivity : AppCompatActivity() {
         }
         backgroundFile = File(getExternalFilesDir(null), "background.jpg")
         loadBackground()
+        loadTextColor()
+    }
+
+    private fun loadTextColor() {
+        text.textColor = getSharedPreferences(SP_CONFIG_NAME, Context.MODE_PRIVATE)
+            .getInt(SP_CONFIG_KEY_TEXT_COLOR, 0xFF333333.toInt())
+
     }
 
     private fun loadBackground() {
@@ -180,6 +188,11 @@ class MainActivity : AppCompatActivity() {
             if (backgroundFile.isFile) {
                 backgroundFile.delete()
                 rl_card.backgroundResource = R.mipmap.bg
+            }
+        } else if (itemId == R.id.action_menu_toggle_text_color) {
+            text.textColor = if(text.currentTextColor == 0xFF333333.toInt()) 0xFFffffff.toInt() else 0xFF333333.toInt()
+            getSharedPreferences(SP_CONFIG_NAME, Context.MODE_PRIVATE).edit {
+                putInt(SP_CONFIG_KEY_TEXT_COLOR, text.currentTextColor)
             }
         }
         return super.onOptionsItemSelected(item)

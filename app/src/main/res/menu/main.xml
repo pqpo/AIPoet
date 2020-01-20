@@ -16,5 +16,8 @@
         <item android:id="@+id/action_menu_rest_bg"
               app:showAsAction="never"
               android:title="恢复默认背景"/>
+        <item android:id="@+id/action_menu_toggle_text_color"
+              app:showAsAction="never"
+              android:title="切换字体颜色"/>
     </group>
 </menu>
