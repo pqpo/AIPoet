@@ -185,17 +185,26 @@ class MainActivity : AppCompatActivity() {
                 changeBg()
             }
         } else if (itemId == R.id.action_menu_rest_bg) {
-            if (backgroundFile.isFile) {
-                backgroundFile.delete()
-                rl_card.backgroundResource = R.mipmap.bg
-            }
+            resetBackground()
+            toggleTextColor()
         } else if (itemId == R.id.action_menu_toggle_text_color) {
-            text.textColor = if(text.currentTextColor == 0xFF333333.toInt()) 0xFFffffff.toInt() else 0xFF333333.toInt()
-            getSharedPreferences(SP_CONFIG_NAME, Context.MODE_PRIVATE).edit {
-                putInt(SP_CONFIG_KEY_TEXT_COLOR, text.currentTextColor)
-            }
+            toggleTextColor()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun toggleTextColor() {
+        text.textColor = if(text.currentTextColor == 0xFF333333.toInt()) 0xFFffffff.toInt() else 0xFF333333.toInt()
+        getSharedPreferences(SP_CONFIG_NAME, Context.MODE_PRIVATE).edit {
+            putInt(SP_CONFIG_KEY_TEXT_COLOR, text.currentTextColor)
+        }
+    }
+
+    private fun resetBackground() {
+        if (backgroundFile.isFile) {
+            backgroundFile.delete()
+            rl_card.backgroundResource = R.mipmap.bg
+        }
     }
 
     private fun changeBg() {

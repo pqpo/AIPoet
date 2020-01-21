@@ -104,9 +104,16 @@ class AiPoet @Throws(IOException::class)
         reset()
         var preWord = "<START>"
         val sb = StringBuilder()
-        for (i in 0 until prefixWordsLocal.length) {
-            fetchNext(preWord)
-            preWord = prefixWordsLocal[i].toString()
+        for (i in IntRange(0, MAX_ACROSTIC_COUNT)) {
+            val next = fetchNext(preWord)
+            if (i >= prefixWordsLocal.length && preWord in arrayOf("。", "！", "？")) {
+                break
+            }
+            if (i < prefixWordsLocal.length) {
+                preWord = prefixWordsLocal[i].toString()
+            } else {
+                preWord = next
+            }
         }
         val lineSize = if (acrostic) startWordsLocal.length  else line
         var lineIndex = -1
@@ -151,6 +158,7 @@ class AiPoet @Throws(IOException::class)
         private const val MODEL_FILE = "poetry_gen_lite_model_quantize.tflite"
         private const val HIDDEN_SIZE = 1024
         private const val MAX_CHAR_COUNT = 200
+        private const val MAX_ACROSTIC_COUNT = 50
 
     }
 
