@@ -19,6 +19,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.SystemClock
 import android.provider.MediaStore
+import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
@@ -236,29 +237,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun savePoetBitmap() {
-        doAsync {
-            val bitmap = Bitmap.createBitmap(cv_poet.width, cv_poet.height, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            cv_poet.draw(canvas)
-            val resolver = contentResolver
-            val contentValues = ContentValues().apply {
-                put(MediaStore.MediaColumns.DISPLAY_NAME, "ai_poet_${SystemClock.currentThreadTimeMillis()}.jpg")
-                put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            }
-            var result = false
-            val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-            uri?.let {
-                resolver.openOutputStream(uri)?.use {
-                    bitmap.compress(
-                        Bitmap.CompressFormat.JPEG,
-                        100,
-                        it
-                    )
-                    result = true
+        share_root.visibility = View.VISIBLE
+        share_root.post {
+            val bitmap: Bitmap = AiPoetUtils.generateSharePicture(cv_poet, share_root as ViewGroup)
+            doAsync {
+                val resolver = contentResolver
+                val contentValues = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, "ai_poet_${SystemClock.currentThreadTimeMillis()}.jpg")
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
                 }
-            }
-            uiThread {
-                toast(if (result) "保存成功" else "保存失败")
+                var result = false
+                val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                uri?.let {
+                    resolver.openOutputStream(uri)?.use {
+                        bitmap.compress(
+                            Bitmap.CompressFormat.JPEG,
+                            100,
+                            it
+                        )
+                        result = true
+                    }
+                }
+                uiThread {
+                    toast(if (result) "保存成功" else "保存失败")
+                }
             }
         }
     }

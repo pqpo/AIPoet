@@ -3,9 +3,6 @@ package me.pqpo.aipoet
 import android.content.Context
 import android.graphics.Typeface
 
-/**
- * Created by qiulinmin@u51.com on 2020-01-19.
- */
 object TypeFaceUtils{
 
     private var typeface: Typeface? = null

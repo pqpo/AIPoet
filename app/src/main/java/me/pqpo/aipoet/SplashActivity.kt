@@ -12,7 +12,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.
         setContentView(R.layout.activity_splash)
         Handler().postDelayed({
             val sharedView = ActivityOptionsCompat
