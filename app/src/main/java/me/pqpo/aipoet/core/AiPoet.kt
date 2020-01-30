@@ -33,14 +33,14 @@ class AiPoet @Throws(IOException::class)
         val tfLiteOptions = Interpreter.Options()
         tfLite = Interpreter(tfLiteModel, tfLiteOptions)
 
-        input = ByteBuffer.allocateDirect(Integer.SIZE / java.lang.Byte.SIZE)
+        input = ByteBuffer.allocateDirect(Int.SIZE_BYTES)
         input.order(ByteOrder.nativeOrder())
-        output = ByteBuffer.allocateDirect(Integer.SIZE / java.lang.Byte.SIZE)
+        output = ByteBuffer.allocateDirect(Int.SIZE_BYTES)
         output.order(ByteOrder.nativeOrder())
 
         states = arrayOf(
-            ByteBuffer.allocateDirect(HIDDEN_SIZE * Integer.SIZE / java.lang.Byte.SIZE),
-            ByteBuffer.allocateDirect(HIDDEN_SIZE * Integer.SIZE / java.lang.Byte.SIZE)
+            ByteBuffer.allocateDirect(HIDDEN_SIZE * Int.SIZE_BYTES),
+            ByteBuffer.allocateDirect(HIDDEN_SIZE * Int.SIZE_BYTES)
         ).apply {
             this[0].order(ByteOrder.nativeOrder())
             this[1].order(ByteOrder.nativeOrder())
@@ -105,14 +105,14 @@ class AiPoet @Throws(IOException::class)
         var preWord = "<START>"
         val sb = StringBuilder()
         for (i in IntRange(0, MAX_ACROSTIC_COUNT)) {
-            val next = fetchNext(preWord)
             if (i >= prefixWordsLocal.length && preWord in arrayOf("。", "！", "？")) {
                 break
             }
-            if (i < prefixWordsLocal.length) {
-                preWord = prefixWordsLocal[i].toString()
+            val next = fetchNext(preWord)
+            preWord = if (i < prefixWordsLocal.length) {
+                prefixWordsLocal[i].toString()
             } else {
-                preWord = next
+                next
             }
         }
         val lineSize = if (acrostic) startWordsLocal.length  else line

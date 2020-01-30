@@ -154,7 +154,7 @@
                         android:layout_centerInParent="true"
                         android:lineSpacingExtra="8dp"
                         tools:text="人间无限路，天堑即淹留。\n工部将何及，孙纲事不通。\n智情心更重，心事日无通。\n能济婴儿辈，同欢孺子同。"
-                        android:textColor="#333333"/>
+                        android:textColor="#444444"/>
 
                 <ImageView
                         android:id="@+id/iv_yz"

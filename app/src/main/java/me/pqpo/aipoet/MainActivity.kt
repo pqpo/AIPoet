@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         const val SP_CONFIG_NAME = "config"
         const val SP_CONFIG_KEY_TEXT_COLOR = "textColor"
+
+        const val DEFAULT_TEXT_COLOR = 0xFF444444
     }
 
     private var acrostic = false
@@ -77,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadTextColor() {
         text.textColor = getSharedPreferences(SP_CONFIG_NAME, Context.MODE_PRIVATE)
-            .getInt(SP_CONFIG_KEY_TEXT_COLOR, 0xFF333333.toInt())
+            .getInt(SP_CONFIG_KEY_TEXT_COLOR, DEFAULT_TEXT_COLOR.toInt())
 
     }
 
@@ -195,7 +197,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun toggleTextColor() {
-        text.textColor = if(text.currentTextColor == 0xFF333333.toInt()) 0xFFffffff.toInt() else 0xFF333333.toInt()
+        text.textColor = if(text.currentTextColor == DEFAULT_TEXT_COLOR.toInt()) 0xFFffffff.toInt() else DEFAULT_TEXT_COLOR.toInt()
         getSharedPreferences(SP_CONFIG_NAME, Context.MODE_PRIVATE).edit {
             putInt(SP_CONFIG_KEY_TEXT_COLOR, text.currentTextColor)
         }

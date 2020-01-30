@@ -11,7 +11,7 @@ object TypeFaceUtils{
         if (typeface == null) {
             typeface = Typeface.createFromAsset(
                 context.assets,
-                "font.ttc"
+                "fonts.ttf"
             )
         }
         return typeface
