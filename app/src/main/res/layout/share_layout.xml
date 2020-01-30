@@ -29,7 +29,7 @@
 
     <ImageView
             android:layout_width="60dp"
-            android:layout_height="60dp" app:srcCompat="@mipmap/ic_launcher"
+            android:layout_height="60dp" app:srcCompat="@mipmap/icon_round"
             android:id="@+id/share_iv_icon" android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/share_cv_poet" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
