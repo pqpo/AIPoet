@@ -1,7 +1,6 @@
 <p align=center> 
   <img src="art/icon_round.png" width=100px/>
-  <h2 align=center>Ai诗人</h2>
-  <p align=center>基于人工智能的 Android 写诗应用，无须联网随时随地写藏头诗，意境诗。</p>
+  <h2 align=center>Ai诗人: 基于人工智能的写诗应用，无须联网随时随地写藏头诗，意境诗。</h2>
 </p> 
 
 ## 应用截图
