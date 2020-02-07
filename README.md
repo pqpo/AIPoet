@@ -25,12 +25,12 @@
 
 ## 训练环境
 
-- 本地环境
-  Python 版本：3.7.2
-  TensorFlow 版本：1.13.2
+- 本地环境  
+  Python 版本：3.7.2  
+  TensorFlow 版本：1.13.2  
   
-- 训练环境
-  Google 免费提供的平台：Colaboratory
+- 训练环境  
+  Google 免费提供的平台：Colaboratory  
 
 ## 训练模型
 
