@@ -34,8 +34,6 @@
 
 ## 训练模型
 
-
-
 感谢训练集诗歌来源 -> [chinese-poetry](https://github.com/chinese-poetry/chinese-poetry)  
 
 - 下载诗歌至目录：poetry-gen/data/raw-data/
@@ -50,6 +48,8 @@
 本次训练使用了 chinese-poetry 提供的唐诗集，总计5w多首唐诗，训练了 13w+ 次：
 
 step: 134997/134997  loss: 1.5622  accuracy: 0.71  0.1806 sec/batch
+
+## 神经网络
 
 使用 TensorFlow 实现的 LSTM 网络：  
 <img src="art/lstm.png" width=500px/><br/>
