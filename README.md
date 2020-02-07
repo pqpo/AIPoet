@@ -23,7 +23,18 @@
 |:---:|:---:|
 |人生不及此，曩年如故林。<br/>工艺各不遂，道心固其深。<br/>智者不可保，所以慰所任。<br/>能为东都儿，不解令所箴。<br/>|<img src="art/ai_poet_share.jpg" width=220px/>|
 
+## 训练环境
+
+- 本地环境
+  Python 版本：3.7.2
+  TensorFlow 版本：1.13.2
+  
+- 训练环境
+  Google 免费提供的平台：Colaboratory
+
 ## 训练模型
+
+
 
 感谢训练集诗歌来源 -> [chinese-poetry](https://github.com/chinese-poetry/chinese-poetry)  
 
@@ -31,9 +42,20 @@
 - 诗歌数据转简体中文，运行脚本 poetry-gen/raw_data_2_simplified.sh
 - 数据预处理，直接使用预处理好的二进制文件：poetry-gen/tang.npz 或 运行脚本 data_utils.py 自己生成
 - 开始训练，运行脚本 poetry-gen/train.py
+- 模型效果验证，运行脚本 poetry-gen/sample.py
 - 训练结束后导出模型，运行脚本 poetry-gen/freeze_model.py
 - 导出文字转换文件，运行脚本 poetry-gen/export_convert.py
 - Android 项目工程 assets 目录下替换上述生成的 转换文件 与 模型文件
+
+本次训练使用了 chinese-poetry 提供的唐诗集，总计5w多首唐诗，训练了 13w+ 次：
+
+step: 134997/134997  loss: 1.5622  accuracy: 0.71  0.1806 sec/batch
+
+使用 TensorFlow 实现的 LSTM 网络：  
+<img src="art/lstm.png" width=500px/><br/>
+<img src="art/TensorFlow_impl.jpg" width=500px/>
+
+
 
 ## About Me：
 
