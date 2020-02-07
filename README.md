@@ -2,7 +2,7 @@
   <img src="art/icon_round.png" width=100px/>
   <h2 align=center>Ai诗人</h2>
   <p align=center> 
-  基于人工智能的 Android 写诗应用，无须联网随时随地写藏头诗，意境诗。
+  基于人工智能的 Android 写诗应用，无须联网随时随地写藏头诗，意境诗。如果你对此刚兴趣的话帮忙点个 star！
   </p>
 </p> 
 
@@ -32,5 +32,31 @@
 - 训练结束后导出模型，运行脚本 poetry-gen/freeze_model.py
 - 导出文字转换文件，运行脚本 poetry-gen/export_convert.py
 - Android 项目工程 assets 目录下替换上述生成的 转换文件 与 模型文件
+
+## About Me：
+
+- Email：    pqponet@gmail.com
+- GitHub：  [pqpo](https://github.com/pqpo)
+- Blog：    [pqpo's notes](https://pqpo.me)
+- Twitter: [Pqponet](https://twitter.com/Pqponet)
+- WeChat: pqpo_me
+
+<img src="art/qrcode_for_gh.jpg" width="200">
+
+## License
+
+    Copyright 2017 pqpo
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+       http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
 
