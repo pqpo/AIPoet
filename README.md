@@ -1,10 +1,12 @@
 <p align=center> 
   <img src="art/icon_round.png" width=100px/>
   <h2 align=center>Ai诗人</h2>
-  <p align=center> 
-  基于人工智能的 Android 写诗应用，无须联网随时随地写藏头诗，意境诗。如果你对此刚兴趣的话帮忙点个 star！
-  </p>
 </p> 
+
+基于人工智能的 Android 写诗应用，无须联网随时随地写藏头诗、意境诗。使用长短时循环神经网络，针对五万多首唐诗进行训练，并且将训练模型移植到 Android 客户端中，当然你也可以将训练出的模型移植到任意平台。 
+
+***如果你对此也感兴趣的话帮忙点个 star！***
+
 
 ## 应用截图
 
@@ -41,7 +43,7 @@
 - Twitter: [Pqponet](https://twitter.com/Pqponet)
 - WeChat: pqpo_me
 
-<img src="art/qrcode_for_gh.jpg" width="200">
+<img src="https://raw.githubusercontent.com/pqpo/Log4a/master/art/qrcode_for_gh.jpg" width="200">
 
 ## License
 
