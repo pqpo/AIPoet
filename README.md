@@ -9,6 +9,8 @@
 
 ***《理解循环网络及其在移动端的趣味应用：AI诗人》：*** https://pqpo.me/2020/02/11/learn-lstm-aipoet/
 
+酷安下载体验地址：[Ai诗人](https://www.coolapk.com/apk/254764)
+
 
 ## 应用截图
 
@@ -19,7 +21,8 @@
 
 ## Ai作诗
 
-安装包下载 -> [Release](https://github.com/pqpo/AIPoet/releases)
+安装包下载 -> [Release](https://github.com/pqpo/AIPoet/releases)  
+酷安下载体验地址：[Ai诗人](https://www.coolapk.com/apk/254764)  
 
 |导出文本|导出图片|
 |:---:|:---:|
